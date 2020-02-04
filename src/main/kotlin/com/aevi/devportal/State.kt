@@ -1,6 +1,7 @@
 package com.aevi.devportal
 
 sealed class State {
-    object PlayersTurn : State()
     object CharacterSelection : State()
+    object GameRound : State()
+    object GameOver : State()
 }
