@@ -2,12 +2,12 @@ package com.aevi.devportal
 
 import org.junit.jupiter.api.Test
 
-class SetIfGridTileEmptyTest {
+class SetIfTileGridTileEmptyTest {
 
     @Test
     fun `Set when tile empty`() {
         //Given
-        val grid = Grid()
+        val grid = TileGrid()
         grid.set(0, 0, XOChar.EMPTY)
         //When
         val result = grid.setIfEmpty(0, 0, XOChar.X)
@@ -19,7 +19,7 @@ class SetIfGridTileEmptyTest {
     @Test
     fun `Set when tile is set`() {
         //Given
-        val grid = Grid()
+        val grid = TileGrid()
         grid.set(0, 0, XOChar.O)
         //When
         val result = grid.setIfEmpty(0, 0, XOChar.X)

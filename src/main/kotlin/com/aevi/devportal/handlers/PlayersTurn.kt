@@ -1,12 +1,9 @@
 package com.aevi.devportal.handlers
 
-import com.aevi.devportal.InputHandler
-import com.aevi.devportal.InputResult
-import com.aevi.devportal.Main
-import com.aevi.devportal.Main.won
-import com.aevi.devportal.State
+import com.aevi.devportal.*
+import com.aevi.devportal.Main.state
 
-class PlayersTurn : InputHandler {
+class PlayersTurn(private val grid: Grid) : InputHandler {
 
     override fun shouldHandle(): Boolean {
         return Main.state == State.GameRound
@@ -22,13 +19,12 @@ class PlayersTurn : InputHandler {
         val x = array.first().toString().toIntOrNull()
         val y = array.last().toString().toIntOrNull()
 
-        if (x != null && y != null && Main.grid.setIfEmpty(x, y, Main.selection)) {
-            val winner = Main.getWinner()
-            if(won(winner)) {
-                return InputResult.ReturnToLoop1
-            } else {
-                return InputResult.ContinueToNextHandler
+        if (x != null && y != null && grid.setIfEmpty(x, y, Main.selection)) {
+            val winner = grid.getWinner()
+            if(winner != null) {
+                state = if (winner == Main.selection) State.Win else State.Lose
             }
+            return InputResult.ContinueToNextHandler
         } else {
             System.err.println("Invalid tile $string")
             return InputResult.ReturnToLoop1

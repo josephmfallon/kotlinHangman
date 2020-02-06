@@ -1,8 +1,5 @@
-package com.aevi.devportal.handlers
+package com.aevi.devportal
 
-import com.aevi.devportal.InputHandler
-import com.aevi.devportal.Main
-import com.aevi.devportal.State
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
@@ -28,7 +25,9 @@ abstract class InputHandlerTester {
         State.CharacterSelection,
         State.GameRound,
         State.GameOver,
-        State.GameReset
+        State.GameReset,
+        State.Win,
+        State.Lose
     )
         .filterNot { it == initialState }
         .map { state ->

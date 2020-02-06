@@ -1,11 +1,13 @@
 package com.aevi.devportal.handlers
 
 import com.aevi.devportal.*
+import com.aevi.devportal.Main.selection
+import com.aevi.devportal.Main.state
 
-class CharacterSelection : InputHandler {
+class CharacterSelection(private val grid: Grid) : InputHandler {
 
     override fun shouldHandle(): Boolean {
-        return Main.state == State.CharacterSelection
+        return state == State.CharacterSelection
     }
 
     override fun getQuestion(): String? {
@@ -16,9 +18,9 @@ class CharacterSelection : InputHandler {
         val character = string.toCharArray().first()
         if (character == XOChar.O.character || character == XOChar.X.character) {
             println("You have chosen $character")
-            Main.selection = XOChar.find(character)
-            Main.state = State.GameRound
-            Main.grid.display()
+            selection = XOChar.find(character)
+            state = State.GameRound
+            grid.display()
             return InputResult.ReturnToLoop1
         } else {
             System.err.println("Not a valid character.")

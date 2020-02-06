@@ -1,28 +1,26 @@
 package com.aevi.devportal.handlers
 
-import com.aevi.devportal.Grid
 import com.aevi.devportal.InputHandler
 import com.aevi.devportal.InputResult
 import com.aevi.devportal.Main.state
 import com.aevi.devportal.State
 
-class GameReset(private val grid: Grid) : InputHandler {
+class Exit : InputHandler {
 
     override fun shouldHandle(): Boolean {
-        return state == State.GameRound
+        return state != State.CharacterSelection
     }
 
     override fun getQuestion(): String? {
-        return null//"Enter reset if you are sure?"
+        return null
     }
 
     override fun handleInput(string: String): InputResult {
-        if (string.equals("reset", true)) {
-            grid.reset()
-            grid.display()
-            println("Grid reset")
-            return InputResult.ReturnToLoop1
+        if(string.equals("exit", true)) {
+            println("Goodbye!")
+            return InputResult.StopRunning
         }
         return InputResult.ContinueToNextHandler
     }
+
 }

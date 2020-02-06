@@ -6,27 +6,7 @@ object Main {
 
     var state: State = State.CharacterSelection
     lateinit var selection: XOChar
-    val grid = Grid()
-
-    fun getWinner(): XOChar? {
-        if(grid.getWinner(XOChar.X)) {
-            return XOChar.X
-        }
-        if(grid.getWinner(XOChar.O)) {
-            return XOChar.O
-        }
-        return null
-    }
-
-    fun won(winner: XOChar?): Boolean {
-        if(winner != null) {
-            Main.state = State.GameOver
-            println(if(winner == Main.selection) "Congratulations! You've won!" else "Game Over, you lost!")
-            println("Enter anything to replay.")
-            return true
-        }
-        return false
-    }
+    val grid = TileGrid()
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -35,11 +15,13 @@ object Main {
         var isRunning = true
 
         val arrayOfInputHandlers = arrayOf(
-            CharacterSelection(),
-            GameStartOver(),
-            GameReset(),
-            PlayersTurn(),
-            ComputersTurn()
+            CharacterSelection(grid),
+            Exit(),
+            GameStartOver(grid),
+            GameReset(grid),
+            PlayersTurn(grid),
+            ComputersTurn(grid),
+            Outcome(grid)
         )
 
         while (isRunning) {//Loop 1
@@ -62,6 +44,10 @@ object Main {
                     val whichResult = handler.handleInput(line)
 
                     if(whichResult == InputResult.ReturnToLoop1) {
+                        break
+                    }
+                    if(whichResult == InputResult.StopRunning) {
+                        isRunning = false
                         break
                     }
                 }

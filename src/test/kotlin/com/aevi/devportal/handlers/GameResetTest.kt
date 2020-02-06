@@ -1,19 +1,24 @@
 package com.aevi.devportal.handlers
 
-import com.aevi.devportal.InputResult
-import com.aevi.devportal.Main
-import com.aevi.devportal.State
-import com.aevi.devportal.XOChar
+import com.aevi.devportal.*
+import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.junit5.MockKExtension
+import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(MockKExtension::class)
 internal class GameResetTest : InputHandlerTester() {
 
     override val initialState = State.GameRound
 
+    @RelaxedMockK
+    lateinit var grid: Grid
+
     @BeforeEach
     fun setup() {
-        handler = GameReset()
+        handler = GameReset(grid)
     }
 
     @Test
@@ -21,6 +26,10 @@ internal class GameResetTest : InputHandlerTester() {
         //When
         val result = handler.handleInput("ReSeT")
         //Then
+        verify {
+            grid.reset()
+            grid.display()
+        }
         assert(result == InputResult.ReturnToLoop1)
     }
 
@@ -31,6 +40,10 @@ internal class GameResetTest : InputHandlerTester() {
         //When
         val result = handler.handleInput("anything")
         //Then
+        verify(exactly = 0) {
+            grid.reset()
+            grid.display()
+        }
         assert(result == InputResult.ContinueToNextHandler)
     }
 }

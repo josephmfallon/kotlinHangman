@@ -1,13 +1,10 @@
 package com.aevi.devportal.handlers
 
-import com.aevi.devportal.InputHandler
-import com.aevi.devportal.InputResult
-import com.aevi.devportal.Main
+import com.aevi.devportal.*
+import com.aevi.devportal.Main.selection
 import com.aevi.devportal.Main.state
-import com.aevi.devportal.Main.won
-import com.aevi.devportal.State
 
-class ComputersTurn : InputHandler {
+class ComputersTurn(private val grid: Grid) : InputHandler {
 
     override fun shouldHandle(): Boolean {
         return state == State.GameRound
@@ -18,20 +15,21 @@ class ComputersTurn : InputHandler {
     }
 
     override fun handleInput(string: String): InputResult {
-        val freeTiles = Main.grid.getFreeTiles()
+        val freeTiles = grid.getFreeTiles()
         if (freeTiles.isEmpty()) {
-            //draw
-            println("Draw!")
-            //TODO("reset etc..")
-            return InputResult.ContinueToNextHandler//FIXME
+            state = State.GameOver
+            grid.display()
+            println("Draw! Nobody has won.")
         } else {
             val (randomX, randomY) = freeTiles.random()
-            Main.grid.set(randomX, randomY, Main.selection.opposite())
-            Main.grid.display()
+            grid.set(randomX, randomY, Main.selection.opposite())
+            grid.display()
             println("Computer turn complete")
-            val winner = Main.getWinner()
-            won(winner)
-            return InputResult.ReturnToLoop1//Doesn't matter
+            val winner = grid.getWinner()
+            if(winner != null) {
+                state = if (winner == selection) State.Win else State.Lose
+            }
         }
+        return InputResult.ContinueToNextHandler
     }
 }

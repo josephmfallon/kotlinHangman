@@ -6,22 +6,21 @@ import com.aevi.devportal.InputResult
 import com.aevi.devportal.Main.state
 import com.aevi.devportal.State
 
-class GameStartOver(private val grid: Grid) : InputHandler {
+class Outcome(private val grid: Grid) : InputHandler {
+
     override fun shouldHandle(): Boolean {
-        return state == State.GameOver
+        return state == State.Win || state == State.Lose
     }
 
     override fun getQuestion(): String? {
-        return "Enter anything to replay."
+        return null
     }
 
     override fun handleInput(string: String): InputResult {
-        if(string.isNotEmpty()) {
-            state = State.GameRound
-            grid.reset()
-            grid.display()
-            println("New game started")
-        }
+        grid.display()
+        println(if(state == State.Win) "Congratulations! You've won!" else "Game over, you've lost!")
+        state = State.GameOver
         return InputResult.ReturnToLoop1
     }
+
 }
