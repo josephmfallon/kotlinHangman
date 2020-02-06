@@ -1,4 +1,4 @@
-package com.aevi.devportal
+package com.aevi.devportal.nac
 
 sealed class State {
     object CharacterSelection : State()

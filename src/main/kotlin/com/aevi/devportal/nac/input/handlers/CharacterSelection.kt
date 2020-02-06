@@ -1,8 +1,12 @@
-package com.aevi.devportal.handlers
+package com.aevi.devportal.nac.input.handlers
 
-import com.aevi.devportal.*
-import com.aevi.devportal.Main.selection
-import com.aevi.devportal.Main.state
+import com.aevi.devportal.nac.NoughtsAndCrosses.selection
+import com.aevi.devportal.nac.NoughtsAndCrosses.state
+import com.aevi.devportal.nac.State
+import com.aevi.devportal.nac.XOChar
+import com.aevi.devportal.nac.grid.Grid
+import com.aevi.devportal.nac.input.InputHandler
+import com.aevi.devportal.nac.input.InputResult
 
 class CharacterSelection(private val grid: Grid) : InputHandler {
 

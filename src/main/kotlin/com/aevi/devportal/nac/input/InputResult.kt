@@ -1,4 +1,4 @@
-package com.aevi.devportal
+package com.aevi.devportal.nac.input
 
 sealed class InputResult {
     object ContinueToNextHandler : InputResult()

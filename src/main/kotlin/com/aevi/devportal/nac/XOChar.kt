@@ -1,4 +1,4 @@
-package com.aevi.devportal
+package com.aevi.devportal.nac
 
 enum class XOChar(val character: Char) {
     O('O'),

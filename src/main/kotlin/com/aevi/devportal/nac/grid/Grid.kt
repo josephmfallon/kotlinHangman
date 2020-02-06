@@ -1,4 +1,6 @@
-package com.aevi.devportal
+package com.aevi.devportal.nac.grid
+
+import com.aevi.devportal.nac.XOChar
 
 interface Grid {
 
@@ -15,4 +17,6 @@ interface Grid {
     fun reset()
 
     fun getWinner(): XOChar?
+
+    fun getTwoInARow(character: XOChar): Coordinate?
 }

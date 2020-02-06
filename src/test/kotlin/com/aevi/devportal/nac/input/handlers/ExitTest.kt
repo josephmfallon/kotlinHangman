@@ -1,6 +1,10 @@
-package com.aevi.devportal.handlers
+package com.aevi.devportal.nac.input.handlers
 
-import com.aevi.devportal.*
+import com.aevi.devportal.nac.NoughtsAndCrosses
+import com.aevi.devportal.nac.State
+import com.aevi.devportal.nac.XOChar
+import com.aevi.devportal.nac.input.InputHandler
+import com.aevi.devportal.nac.input.InputResult
 import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -22,7 +26,7 @@ internal class ExitTest {
     @Test
     fun `Exit stops game running`() {
         //Given
-        Main.selection = XOChar.O
+        NoughtsAndCrosses.selection = XOChar.O
         //When
         val result = handler.handleInput("ExIt")
         //Then
@@ -32,7 +36,7 @@ internal class ExitTest {
     @Test
     fun `Anything else is ignored`() {
         //Given
-        Main.selection = XOChar.O
+        NoughtsAndCrosses.selection = XOChar.O
         //When
         val result = handler.handleInput("anything")
         //Then
@@ -43,7 +47,7 @@ internal class ExitTest {
     @Test
     fun `Should not handle character-selection state`() {
         //Given
-        Main.state = State.CharacterSelection
+        NoughtsAndCrosses.state = State.CharacterSelection
         //When
         val shouldHandle = handler.shouldHandle()
         //Then
@@ -61,7 +65,7 @@ internal class ExitTest {
         .map { state ->
             DynamicTest.dynamicTest("Should not handle ${state::class.java.simpleName}") {
                 //Given
-                Main.state = state
+                NoughtsAndCrosses.state = state
                 //When
                 val shouldHandle = handler.shouldHandle()
                 //Then

@@ -1,19 +1,20 @@
-package com.aevi.devportal
+package com.aevi.devportal.nac
 
-import com.aevi.devportal.handlers.*
+import com.aevi.devportal.nac.grid.TileGrid
+import com.aevi.devportal.nac.input.InputResult
+import com.aevi.devportal.nac.input.handlers.*
 
-object Main {
+object NoughtsAndCrosses {
 
-    var state: State = State.CharacterSelection
+    var state: State =
+        State.CharacterSelection
     lateinit var selection: XOChar
-    val grid = TileGrid()
 
     @JvmStatic
     fun main(args: Array<String>) {
-
-
         var isRunning = true
 
+        val grid = TileGrid()
         val arrayOfInputHandlers = arrayOf(
             CharacterSelection(grid),
             Exit(),

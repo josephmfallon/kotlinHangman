@@ -1,5 +1,7 @@
-package com.aevi.devportal
+package com.aevi.devportal.nac.input
 
+import com.aevi.devportal.nac.NoughtsAndCrosses
+import com.aevi.devportal.nac.State
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
@@ -13,7 +15,7 @@ abstract class InputHandlerTester {
     @Test
     fun `Should handle initial state`() {
         //Given
-        Main.state = initialState
+        NoughtsAndCrosses.state = initialState
         //When
         val shouldHandle = handler.shouldHandle()
         //Then
@@ -33,7 +35,7 @@ abstract class InputHandlerTester {
         .map { state ->
             DynamicTest.dynamicTest("Should not handle ${state::class.java.simpleName}") {
                 //Given
-                Main.state = state
+                NoughtsAndCrosses.state = state
                 //When
                 val shouldHandle = handler.shouldHandle()
                 //Then

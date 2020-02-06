@@ -1,13 +1,12 @@
-package com.aevi.devportal
+package com.aevi.devportal.nac.grid
 
-import com.aevi.devportal.XOChar.EMPTY
+import com.aevi.devportal.nac.XOChar
+import com.aevi.devportal.nac.XOChar.EMPTY
 
+/**
+ * TODO handle out of bounds exceptions
+ */
 class TileGrid : Grid {
-
-    /*
-        TODO check for out of bounds exceptions
-            make computer smarter
-     */
 
     private val tiles = arrayOf(
         arrayOf(EMPTY, EMPTY, EMPTY),
@@ -79,6 +78,22 @@ class TileGrid : Grid {
         }
         if(getWinner(XOChar.O)) {
             return XOChar.O
+        }
+        return null
+    }
+
+    override fun getTwoInARow(character: XOChar): Coordinate? {
+        val horizontal = checkForTwoHorizontally(character)
+        if(horizontal != null) {
+            return horizontal
+        }
+        val vertical = checkForTwoVertically(character)
+        if(vertical != null) {
+            return vertical
+        }
+        val diagonal = checkForTwoDiagonally(character)
+        if(diagonal != null) {
+            return diagonal
         }
         return null
     }

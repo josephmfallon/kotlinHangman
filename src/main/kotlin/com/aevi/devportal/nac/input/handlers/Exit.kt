@@ -1,9 +1,9 @@
-package com.aevi.devportal.handlers
+package com.aevi.devportal.nac.input.handlers
 
-import com.aevi.devportal.InputHandler
-import com.aevi.devportal.InputResult
-import com.aevi.devportal.Main.state
-import com.aevi.devportal.State
+import com.aevi.devportal.nac.input.InputHandler
+import com.aevi.devportal.nac.input.InputResult
+import com.aevi.devportal.nac.NoughtsAndCrosses.state
+import com.aevi.devportal.nac.State
 
 class Exit : InputHandler {
 

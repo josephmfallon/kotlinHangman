@@ -1,7 +1,12 @@
-package com.aevi.devportal.handlers
+package com.aevi.devportal.nac.input.handlers
 
-import com.aevi.devportal.*
-import com.aevi.devportal.Main.selection
+import com.aevi.devportal.nac.NoughtsAndCrosses.selection
+import com.aevi.devportal.nac.State
+import com.aevi.devportal.nac.XOChar
+import com.aevi.devportal.nac.grid.Coordinate
+import com.aevi.devportal.nac.grid.Grid
+import com.aevi.devportal.nac.input.InputHandlerTester
+import com.aevi.devportal.nac.input.InputResult
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.junit5.MockKExtension
@@ -45,6 +50,7 @@ internal class ComputersTurnTest : InputHandlerTester() {
         //Given
         selection = XOChar.O
         every { grid.getFreeTiles() } returns listOf(Coordinate(1, 2))
+        every { grid.getTwoInARow(any()) } returns null
         //When
         val result = handler.handleInput("1, 1")
         //Then

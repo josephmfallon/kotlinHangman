@@ -1,5 +1,6 @@
-package com.aevi.devportal
+package com.aevi.devportal.nac.grid
 
+import com.aevi.devportal.nac.XOChar
 import org.junit.jupiter.api.Test
 
 class SetIfTileGridTileEmptyTest {

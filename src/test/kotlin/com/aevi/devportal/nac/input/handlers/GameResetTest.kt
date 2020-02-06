@@ -1,6 +1,11 @@
-package com.aevi.devportal.handlers
+package com.aevi.devportal.nac.input.handlers
 
-import com.aevi.devportal.*
+import com.aevi.devportal.nac.NoughtsAndCrosses
+import com.aevi.devportal.nac.State
+import com.aevi.devportal.nac.XOChar
+import com.aevi.devportal.nac.grid.Grid
+import com.aevi.devportal.nac.input.InputHandlerTester
+import com.aevi.devportal.nac.input.InputResult
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.verify
@@ -36,7 +41,7 @@ internal class GameResetTest : InputHandlerTester() {
     @Test
     fun `Any input continues to next handler`() {
         //Given
-        Main.selection = XOChar.O
+        NoughtsAndCrosses.selection = XOChar.O
         //When
         val result = handler.handleInput("anything")
         //Then
