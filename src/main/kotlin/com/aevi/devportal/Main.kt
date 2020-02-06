@@ -36,7 +36,7 @@ object Main {
 
         val arrayOfInputHandlers = arrayOf(
             CharacterSelection(),
-            TheGameHasConcludedAndNowWeWantToStartANewGame(),
+            GameStartOver(),
             GameReset(),
             PlayersTurn(),
             ComputersTurn()

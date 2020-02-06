@@ -3,6 +3,11 @@ package com.aevi.devportal
 import com.aevi.devportal.XOChar.EMPTY
 
 class Grid {
+
+    /*
+        TODO check for out of bounds exceptions
+     */
+
     private val tiles = arrayOf(
         arrayOf(EMPTY, EMPTY, EMPTY),
         arrayOf(EMPTY, EMPTY, EMPTY),

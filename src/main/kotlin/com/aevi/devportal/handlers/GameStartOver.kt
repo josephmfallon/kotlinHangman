@@ -6,7 +6,7 @@ import com.aevi.devportal.Main.grid
 import com.aevi.devportal.Main.state
 import com.aevi.devportal.State
 
-class TheGameHasConcludedAndNowWeWantToStartANewGame : InputHandler {
+class GameStartOver : InputHandler {
     override fun shouldHandle(): Boolean {
         return state == State.GameOver
     }
