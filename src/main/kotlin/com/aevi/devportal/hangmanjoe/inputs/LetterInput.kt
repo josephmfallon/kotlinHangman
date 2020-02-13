@@ -34,8 +34,8 @@ enum class LetterInput(val letter: Char) {
     }
 
     companion object {
-        fun find(letter: Char): LetterInput {
-            return values().first() {letterInput -> letterInput.letter == letter }
+        fun find(letter: Char?): LetterInput? {
+            return values().firstOrNull {letterInput -> letterInput.letter == letter }
         }
     }
 }

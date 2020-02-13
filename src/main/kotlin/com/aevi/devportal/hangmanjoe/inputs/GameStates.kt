@@ -5,7 +5,6 @@ package com.aevi.devportal.hangmanjoe.inputs
 sealed class GameState {
     object WordSelection: GameState()
     object GameRound: GameState()
-    object GameOver: GameState()
     object GameReset: GameState()
     object Win: GameState()
     object Lose: GameState()

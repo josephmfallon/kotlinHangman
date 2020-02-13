@@ -1,7 +1,12 @@
 package com.aevi.devportal.hangmanjoe.linedisplay
 
-class LineDisplay(){
+import com.aevi.devportal.hangmanjoe.lettersTried
+import com.aevi.devportal.hangmanjoe.mutableWord
 
-    fun getLineSize (selectRandomWord(InputWords): String) =// TODO: logic
-        Unit
+object LineDisplay{
+
+    fun displayLine(){
+        println("GAME LINE: $mutableWord")
+        println("Tally of letters guessed: $lettersTried")
+    }
 }
