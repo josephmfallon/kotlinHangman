@@ -1,30 +1,19 @@
 package com.aevi.devportal.hangmanjoe
 
-//Hangman
-//Store a random array of words (hardcoded) !!!!
-//Create function to select random word !!!!
-// Create enum class to define Character Input types!!!!
-//Create game states!!!!
-//Create function which displays unguessed tiles as empty !!!!
-//Create console inteface for game to run in!!!!
-//Each game a random word is selected and displays the empty characters.!!!!
-//Player should be prompted to enter a character!!!!
-//Correct characters should be filled in!!!!
-//Incorrect characters should deduct a life!!!!
-//The game is lost when no lives remain!!!!
-//The game is won when the word is complete!!!!
-//Incorrect characters entered twice shouldn't deduct two lives.
+
 //The player should be able to reset and exit the game.
 //Abstract everything into Classes
+//Write tests for everything
 
 import com.aevi.devportal.hangmanjoe.inputs.GamePrint
+import com.aevi.devportal.hangmanjoe.inputs.GameResolutions
 import com.aevi.devportal.hangmanjoe.inputs.LetterInput
+import com.aevi.devportal.hangmanjoe.inputs.LoseLife
 import com.aevi.devportal.hangmanjoe.linedisplay.LineDisplay
-import javax.swing.text.StyledEditorKit
 
-var livesLeft: Int = 8
-lateinit var randomWord: String
-lateinit var mutableWord: String
+var livesLeft: Int = 8 //TODO change to lateinit (figure out why it doesn't work
+lateinit var randomWordSelected: String
+lateinit var playingWord: String
 lateinit var lettersTried: MutableList<Char>
 val inputWords = arrayOf<String>(
     "SLEEP",
@@ -59,19 +48,18 @@ val inputWords = arrayOf<String>(
     "COWS"
 )
 
-val doubleLetterWords = arrayOf<String>("BEER", "CHEER", "MOO", "GLASSES","FEELING","SPEAKER")
-
-fun selectRandomWord(arrayofwords: Array<String>): String {
-    val ranNum = arrayofwords.indices.random()
-    return arrayofwords[ranNum]
+fun selectRandomWord(arrayOfWords: Array<String>): String {
+    val ranNum = arrayOfWords.indices.random()
+    return arrayOfWords[ranNum]
 }
 
 
 //display unguessed tiles if game is ongoing or the initial empty tiles size for a new game
-fun displayUnguessedTiles(mutableRandomWord: String): String {
+fun displayUnguessedTiles(): String {
     var returnTile = ""
-    for (char in randomWord) {
-        returnTile = if (char.toString() != LetterInput.toString()) {
+    for (char in randomWordSelected) {
+        returnTile = if (char.toString() != LetterInput.toString()) { //FIXME use .any instead of LetterInput.toString
+//            !playingWord.any { it == LetterInput.Empty.letter }) maybe similar to this
             returnTile.plus(LetterInput.Empty)
         } else {
             returnTile.plus(char)
@@ -108,11 +96,11 @@ fun letterGuess(letterValue: LetterInput) {
         return //if triggered ignores all steps after empty return
     }
     var anyCharCorrect: Boolean = false
-    for ((charIndex, char) in randomWord.withIndex()) {
-        if (char == letterValue.letter) { //only add char to first instance of itself in Word -> LUMINOUS -> -U------
-            var wordAsArray = mutableWord.toCharArray()
+    for ((charIndex, char) in randomWordSelected.withIndex()) {
+        if (char == letterValue.letter) {
+            var wordAsArray = playingWord.toCharArray()
             wordAsArray[charIndex] = letterValue.letter
-            mutableWord = wordAsArray.joinToString(separator = "")
+            playingWord = wordAsArray.joinToString(separator = "")
             anyCharCorrect = true
         }
     } //end of "for" loop
@@ -123,57 +111,26 @@ fun letterGuess(letterValue: LetterInput) {
     LineDisplay.displayLine()
     //If AnyCharCorrect is false will make player lose a life
     if (!anyCharCorrect) {
-        loseLife()
+        LoseLife().loseLife()
     } else {
-        if (!mutableWord.any { it == LetterInput.Empty.letter }) {
-            playerWins()
+        if (!playingWord.any { it == LetterInput.Empty.letter }) {
+            GameResolutions().playerWins()
         }
     }
 }
 
-fun loseLife() {
-    if (livesLeft > 1) {
-        livesLeft--
-        LineDisplay.displayLine()
-        GamePrint.print("Letter Not Present in Word, You have lost a life. You have $livesLeft lives left.")
-    } else {
-        playerLoses()
-    }
-}
-
-fun playerLoses() {
-    LineDisplay.displayLine()
-    GamePrint.print("You have run out lives and therefore lost the game.")
-    GameReset()
-}
-
-fun playerWins() {
-    LineDisplay.displayLine()
-    GamePrint.print("You have correctly guessed the word & Won!!")
-    GameReset()
-}
-
-fun GameReset() {
-    livesLeft = 8
-    randomWord = selectRandomWord(inputWords)
-    mutableWord = displayUnguessedTiles(randomWord)
-    lettersTried.clear()
-    GamePrint.print("Current Game Finished.")
-    GamePrint.print("New Game beginning")
-}
+//fun loseLife() {
+//    if (livesLeft > 1) {
+//        livesLeft--
+//        LineDisplay.displayLine()
+//        GamePrint.print("Letter Not Present in Word, You have lost a life. You have $livesLeft lives left.")
+//    } else {
+//        GameResolutions().playerLoses()
+//    }
+//}
 
 fun main(args: Array<String>) {
-    randomWord = selectRandomWord(inputWords)
-    //used as the source of truth comparison. mutableWord is the player game state
-    mutableWord = displayUnguessedTiles(randomWord)
-    lettersTried = mutableListOf()
-    //initialised at start, changed throughout game
-
-
-//    println("displayUnguessedTiles NoPlayerInput Example: " + displayUnguessedTiles(randomWord))
-    println("Random Word chosen for first game: $randomWord")
-//    println(mutableWord)
-//    println(LetterInput.A)
+    GameResolutions().gameReset()
 
     //logic of the game
     var isRunning = true
@@ -186,8 +143,7 @@ fun main(args: Array<String>) {
         var charValid = isValidChar(playerInput)
 //        LineDisplay.displayLine()
         decider(charValid)
-
-
     }
-    readLine() //waits for user input before continuing
+//    readLine() //waits for user input before continuing
+    readLine()
 }
