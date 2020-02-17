@@ -45,22 +45,36 @@ val inputWords = arrayOf<String>(
 )
 
 fun main(args: Array<String>) {
+//
+//    val arrayOfInputHandlers = arrayOf(
+//        GameStart,
+//        GameState.GameRound
+//
+//
+//
+//    )
+
+
     GameResolutions().gameReset()
 
     //logic of the game
     var isRunning = true
-
+    val letterInputLogic = LetterInputLogic()
+    val gameResolutions = GameResolutions()
 
     start@ while (isRunning) {//game logic loop
         GamePrint.print("Please enter an upper Case Letter")
         var playerInput: String = readLine()!!
 
-        var charValid = LetterInputLogic().isValidChar(playerInput)
-        if(GameResolutions().gameExit(playerInput)){
+        var charValid = letterInputLogic.isValidChar(playerInput)
+        if (gameResolutions.playerRestart(playerInput)) {
             continue@start
         }
-//        LineDisplay.displayLine()
-        LetterInputLogic().decider(charValid)
+        if (gameResolutions.playerExit(playerInput)) {
+            isRunning = false
+            break
+        }
+        letterInputLogic.decider(charValid)
     }
 //    readLine() //waits for user input before continuing
     readLine()

@@ -6,7 +6,7 @@ import com.aevi.devportal.hangmanjoe.linedisplay.LineDisplay
 class GameResolutions() {
 
     fun gameEvaluation(winState: String) {
-        if(winState == "WIN") {
+        if (winState == "WIN") {
             this.gameReset("Current Game Finished. You have correctly guessed the word & Won!!")
         } else {
             this.gameReset(("Current Game Finished. You have run out lives and therefore lost the game."))
@@ -22,9 +22,16 @@ class GameResolutions() {
         println("Random Word chosen for game: $randomWordSelected") //debug command
     }
 
-    fun gameExit(playerInput: String):Boolean {
+    fun playerRestart(playerInput: String): Boolean {
+        if (playerInput.toUpperCase() == "RESTART") {
+            gameReset("Game Restarted.")
+            return true
+        } else return false
+    }
+
+    fun playerExit(playerInput: String):Boolean {
         if (playerInput.toUpperCase() == "EXIT") {
-            gameReset("Game Exited.")
+            GamePrint.print("Game Exiting. Please press any key.")
             return true
         } else return false
     }
