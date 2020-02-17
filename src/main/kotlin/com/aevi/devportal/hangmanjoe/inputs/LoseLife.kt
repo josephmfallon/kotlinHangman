@@ -8,7 +8,7 @@ class LoseLife() {
     fun loseLife() {
         if (livesLeft > 1) {
             livesLeft--
-            LineDisplay.displayLine()
+            LineDisplay().displayLine()
             GamePrint.print("Letter Not Present in Word, You have lost a life. You have $livesLeft lives left.")
         } else {
             GameResolutions().playerLoses()

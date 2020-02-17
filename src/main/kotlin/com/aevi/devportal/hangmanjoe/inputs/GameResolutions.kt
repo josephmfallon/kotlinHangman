@@ -6,7 +6,7 @@ import com.aevi.devportal.hangmanjoe.linedisplay.LineDisplay
 class GameResolutions() {
 
     fun playerLoses() {
-        LineDisplay.displayLine()
+        LineDisplay().displayLine()
         this.gameReset(("Current Game Finished. You have run out lives and therefore lost the game."))
     }
     //very similar methods could be abstracted into same method. Is good or not? TODO
@@ -16,11 +16,11 @@ class GameResolutions() {
 
     fun gameReset(winState: String = "") {
         livesLeft = 8
-        randomWordSelected = selectRandomWord(inputWords)
-        playingWord = displayUnguessedTiles()
+        randomWordSelected = inputWords.random()
+        playingWord = LineDisplay().displayUnguessedTiles()
         lettersTried = mutableListOf()
         GamePrint.print("$winState New Game beginning.")
-        println("Random Word chosen for first game: $randomWordSelected") //debug command
+        println("Random Word chosen for game: $randomWordSelected") //debug command
     }
 
 }
