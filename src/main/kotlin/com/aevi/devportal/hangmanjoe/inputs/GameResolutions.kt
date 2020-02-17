@@ -23,4 +23,10 @@ class GameResolutions() {
         println("Random Word chosen for game: $randomWordSelected") //debug command
     }
 
+    fun gameExit(playerInput: String):Boolean {
+        if (playerInput.toUpperCase() == "EXIT") {
+            gameReset("Game Exited.")
+            return true
+        } else return false
+    }
 }

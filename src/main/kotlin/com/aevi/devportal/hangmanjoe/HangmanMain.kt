@@ -6,7 +6,6 @@ package com.aevi.devportal.hangmanjoe
 //Write tests for everything
 
 import com.aevi.devportal.hangmanjoe.inputs.*
-import com.aevi.devportal.hangmanjoe.linedisplay.LineDisplay
 
 var livesLeft: Int = 8 //TODO change to lateinit (figure out why it doesn't work
 lateinit var randomWordSelected: String
@@ -52,11 +51,14 @@ fun main(args: Array<String>) {
     var isRunning = true
 
 
-    while (isRunning) {//game logic loop
+    start@ while (isRunning) {//game logic loop
         GamePrint.print("Please enter an upper Case Letter")
         var playerInput: String = readLine()!!
 
         var charValid = LetterInputLogic().isValidChar(playerInput)
+        if(GameResolutions().gameExit(playerInput)){
+            continue@start
+        }
 //        LineDisplay.displayLine()
         LetterInputLogic().decider(charValid)
     }
