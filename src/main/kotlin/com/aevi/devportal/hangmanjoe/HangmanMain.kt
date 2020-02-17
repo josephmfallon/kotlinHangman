@@ -6,8 +6,9 @@ package com.aevi.devportal.hangmanjoe
 //Write tests for everything
 
 import com.aevi.devportal.hangmanjoe.inputs.*
+import kotlin.properties.Delegates
 
-var livesLeft: Int = 8 //TODO change to lateinit (figure out why it doesn't work
+var livesLeft by Delegates.notNull<Int>() //TODO change to lateinit (figure out why it doesn't work
 lateinit var randomWordSelected: String
 lateinit var playingWord: String
 lateinit var lettersTried: MutableList<Char>
