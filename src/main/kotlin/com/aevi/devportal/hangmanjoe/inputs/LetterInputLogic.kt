@@ -45,7 +45,7 @@ class LetterInputLogic() {
             LoseLife().loseLife()
         } else {
             if (!playingWord.any { it == LetterInput.Empty.letter }) {
-                GameResolutions().playerWins()
+                GameResolutions().gameEvaluation("WIN")
             }
         }
     }

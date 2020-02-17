@@ -5,13 +5,12 @@ import com.aevi.devportal.hangmanjoe.linedisplay.LineDisplay
 
 class GameResolutions() {
 
-    fun playerLoses() {
-        LineDisplay().displayLine()
-        this.gameReset(("Current Game Finished. You have run out lives and therefore lost the game."))
-    }
-    //very similar methods could be abstracted into same method. Is good or not? TODO
-    fun playerWins() {
-        this.gameReset("Current Game Finished. You have correctly guessed the word & Won!!")
+    fun gameEvaluation(winState: String) {
+        if(winState == "WIN") {
+            this.gameReset("Current Game Finished. You have correctly guessed the word & Won!!")
+        } else {
+            this.gameReset(("Current Game Finished. You have run out lives and therefore lost the game."))
+        }
     }
 
     fun gameReset(winState: String = "") {

@@ -11,7 +11,7 @@ class LoseLife() {
             LineDisplay().displayLine()
             GamePrint.print("Letter Not Present in Word, You have lost a life. You have $livesLeft lives left.")
         } else {
-            GameResolutions().playerLoses()
+            GameResolutions().gameEvaluation("LOSS")
         }
     }
 }
