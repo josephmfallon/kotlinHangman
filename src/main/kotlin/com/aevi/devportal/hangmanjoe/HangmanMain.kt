@@ -8,10 +8,11 @@ package com.aevi.devportal.hangmanjoe
 import com.aevi.devportal.hangmanjoe.inputs.*
 import kotlin.properties.Delegates
 
-var livesLeft by Delegates.notNull<Int>() //TODO change to lateinit (figure out why it doesn't work
-lateinit var randomWordSelected: String
-lateinit var playingWord: String
-lateinit var lettersTried: MutableList<Char>
+//var livesLeft:Int = -1
+//lateinit var randomWordSelected: String
+//lateinit var playingWord: String
+//lateinit var lettersTried: MutableList<Char>
+//put into gameResolutions class
 val inputWords = arrayOf<String>(
     "SLEEP",
     "DELETION",
@@ -44,6 +45,8 @@ val inputWords = arrayOf<String>(
     "BEGGING",
     "COWS"
 )
+val letterInputLogic = LetterInputLogic()
+val gameResolutions = GameResolutions()
 
 fun main(args: Array<String>) {
 //
@@ -56,12 +59,11 @@ fun main(args: Array<String>) {
 //    )
 
 
-    GameResolutions().gameReset()
 
     //logic of the game
     var isRunning = true
-    val letterInputLogic = LetterInputLogic()
-    val gameResolutions = GameResolutions()
+
+    gameResolutions.gameReset()
 
     start@ while (isRunning) {//game logic loop
         GamePrint.print("Please enter an upper Case Letter")
@@ -72,11 +74,8 @@ fun main(args: Array<String>) {
             continue@start
         }
         if (gameResolutions.playerExit(playerInput)) {
-            isRunning = false
             break
         }
-        letterInputLogic.decider(charValid)
+        letterInputLogic.decider(charValid, letterInputLogic)
     }
-//    readLine() //waits for user input before continuing
-    readLine()
 }

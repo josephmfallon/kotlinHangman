@@ -1,9 +1,9 @@
 package com.aevi.devportal.hangmanjoe.inputs
 
-import com.aevi.devportal.hangmanjoe.lettersTried
+
+import com.aevi.devportal.hangmanjoe.gameResolutions
 import com.aevi.devportal.hangmanjoe.linedisplay.LineDisplay
-import com.aevi.devportal.hangmanjoe.playingWord
-import com.aevi.devportal.hangmanjoe.randomWordSelected
+
 
 class LetterInputLogic() {
 
@@ -19,11 +19,15 @@ class LetterInputLogic() {
         }
     }
 
-    fun letterGuess(letterValue: LetterInput) {
+    fun letterGuess(letterValue: LetterInput, gameResolutions: GameResolutions) {
+        var lettersTried = gameResolutions.lettersTried
+        var randomWordSelected = gameResolutions.randomWordSelected
+        var playingWord = gameResolutions.playingWord
+        var livesLeft = gameResolutions.livesLeft
 
         if(lettersTried.contains(letterValue.letter)){
             GamePrint.print("Character already entered within LettersTried: $lettersTried, please enter another.")
-            LineDisplay().displayLine()
+            LineDisplay().displayLine(playingWord, lettersTried)
             return //if triggered ignores all steps after empty return
         }
         var anyCharCorrect: Boolean = false
@@ -32,6 +36,7 @@ class LetterInputLogic() {
                 var wordAsArray = playingWord.toCharArray()
                 wordAsArray[charIndex] = letterValue.letter
                 playingWord = wordAsArray.joinToString(separator = "")
+                gameResolutions.playingWord = playingWord
                 anyCharCorrect = true
             }
         } //end of "for" loop
@@ -39,10 +44,10 @@ class LetterInputLogic() {
         if(anyCharCorrect){
             GamePrint.print("Correct character chosen")
         }
-        LineDisplay().displayLine()
+        LineDisplay().displayLine(playingWord, lettersTried)
         //If AnyCharCorrect is false will make player lose a life
         if (!anyCharCorrect) {
-            LoseLife().loseLife()
+            LoseLife().loseLife(playingWord,lettersTried,livesLeft)
         } else {
             if (!playingWord.any { it == LetterInput.Empty.letter }) {
                 GameResolutions().gameEvaluation("WIN")
@@ -50,10 +55,10 @@ class LetterInputLogic() {
         }
     }
 
-    fun decider(charValid: LetterInput?) {
+    fun decider(charValid: LetterInput?,letterInputLogic: LetterInputLogic ) {
         if (charValid != null) {
 //        println("in Decider: Char is valid, executing ")
-            LetterInputLogic().letterGuess(charValid)
+            letterInputLogic.letterGuess(charValid, gameResolutions)
         }
     } //if false will continue on through loop, or if nothing else present will restart loop
 }

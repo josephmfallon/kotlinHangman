@@ -4,6 +4,10 @@ import com.aevi.devportal.hangmanjoe.*
 import com.aevi.devportal.hangmanjoe.linedisplay.LineDisplay
 
 class GameResolutions() {
+    var livesLeft:Int = -1
+    lateinit var randomWordSelected: String
+    lateinit var playingWord: String
+    lateinit var lettersTried: MutableList<Char>
 
     fun gameEvaluation(winState: String) {
         if (winState == "WIN") {
@@ -16,7 +20,7 @@ class GameResolutions() {
     fun gameReset(winState: String = "") {
         livesLeft = 8
         randomWordSelected = inputWords.random()
-        playingWord = LineDisplay().displayUnguessedTiles()
+        playingWord = LineDisplay().displayUnguessedTiles(randomWordSelected)
         lettersTried = mutableListOf()
         GamePrint.print("$winState New Game beginning.")
         println("Random Word chosen for game: $randomWordSelected") //debug command
@@ -31,7 +35,7 @@ class GameResolutions() {
 
     fun playerExit(playerInput: String):Boolean {
         if (playerInput.toUpperCase() == "EXIT") {
-            GamePrint.print("Game Exiting. Please press any key.")
+            GamePrint.print("Game Exiting")
             return true
         } else return false
     }
