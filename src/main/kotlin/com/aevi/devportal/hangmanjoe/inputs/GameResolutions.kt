@@ -18,10 +18,11 @@ class GameResolutions() {
     }
 
     fun gameReset(winState: String = "") {
-        livesLeft = 8
-        randomWordSelected = inputWords.random()
-        playingWord = LineDisplay().displayUnguessedTiles(randomWordSelected)
-        lettersTried = mutableListOf()
+        gameResolutions.livesLeft = 8
+        gameResolutions.randomWordSelected = inputWords.random()
+        randomWordSelected = gameResolutions.randomWordSelected
+        gameResolutions.playingWord = LineDisplay().displayUnguessedTiles(randomWordSelected)
+        gameResolutions.lettersTried = mutableListOf()
         GamePrint.print("$winState New Game beginning.")
         println("Random Word chosen for game: $randomWordSelected") //debug command
     }
