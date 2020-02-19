@@ -1,19 +1,21 @@
 package com.aevi.devportal.hangmanjoe.linedisplay
 
+import com.aevi.devportal.hangmanjoe.inputs.GameResolutions
 import com.aevi.devportal.hangmanjoe.inputs.LetterInput
-import com.aevi.devportal.hangmanjoe.lettersTried
-import com.aevi.devportal.hangmanjoe.playingWord
-import com.aevi.devportal.hangmanjoe.randomWordSelected
 
 class LineDisplay{
 
-    fun displayLine(){
+    fun displayLine(gameResolutions: GameResolutions){
+        var lettersTried = gameResolutions.lettersTried
+        var playingWord = gameResolutions.playingWord
+
         println("GAME LINE: $playingWord")
         println("Tally of letters guessed: $lettersTried")
     }
 
     //display unguessed tiles if game is ongoing or the initial empty tiles size for a new game
-    fun displayUnguessedTiles(): String {
+    fun displayUnguessedTiles(gameResolutions: GameResolutions): String {
+        var randomWordSelected =gameResolutions.randomWordSelected
         var returnTile = ""
         for (char in randomWordSelected) {
             if (char  != LetterInput.Empty.letter) {
